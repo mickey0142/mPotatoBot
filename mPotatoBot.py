@@ -44,7 +44,7 @@ async def listPlayer(ctx):
 )
 async def addPlayer(ctx, playerName):
     added = False
-    voice_channel = bot.get_channel(689743531761205304)
+    voice_channel = bot.get_channel(777150058848190465)
     members = voice_channel.members
     for member in members:
         print(f'member name is {member.name}')
@@ -154,7 +154,7 @@ async def dead(ctx, playerName):
         if player.member.name == displayName or player.member.nick == displayName:
             player.alive = False
             break
-    await ctx.send(f'{displayName} ตาย')
+    # await ctx.send(f'{displayName} ตาย')
     await displayPlayerList(ctx)
 
 @bot.command(
@@ -175,7 +175,7 @@ async def alive(ctx, playerName):
         if player.member.name == displayName or player.member.nick == displayName:
             player.alive = True
             break
-    await ctx.send(f'{displayName} ยังไม่ตาย!')
+    # await ctx.send(f'{displayName} ยังไม่ตาย!')
     await displayPlayerList(ctx)
 
 @bot.command(
@@ -187,7 +187,7 @@ async def restartGame(ctx):
     for player in players:
         await player.member.edit(mute=False)
         player.alive = True
-    await ctx.send('เริ่มเกมใหม่เรียบร้อย')
+    # await ctx.send('เริ่มเกมใหม่เรียบร้อย')
     await displayPlayerList(ctx)
 
 @bot.command(
@@ -196,7 +196,7 @@ async def restartGame(ctx):
     brief='เซฟรหัสเข้าห้องเอาไว้ดู | !setRoomCode roomCode'
 )
 async def setRoomCode(ctx, code):
-    roomCode = code
+    global roomCode = code
     await ctx.send(f'รหัสเข้าห้องคือ {roomCode}')
 
 @bot.command(
@@ -226,7 +226,7 @@ async def displayPlayerList(ctx):
             status = 'รอด'
         else:
             status = 'ตาย'
-        response += f'{count}. {player.member.name} | สถานะ : {status}'
+        response += f'{count}. {player.member.name} | สถานะ : {status}\n'
         print(f'player name is {player.member.name}')
         count += 1
     await ctx.send(response)
