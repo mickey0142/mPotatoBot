@@ -8,6 +8,7 @@ load_dotenv()
 
 # create a file name .env and put DISCORD_TOKEN=token in there
 TOKEN = os.getenv('DISCORD_TOKEN')
+channelId = os.getenv('CHANNEL_ID')
 
 intents = discord.Intents.default()
 intents.members = True
@@ -44,7 +45,8 @@ async def listPlayer(ctx):
 )
 async def addPlayer(ctx, playerName):
     added = False
-    voice_channel = bot.get_channel(777150058848190465)
+    global channelId
+    voice_channel = bot.get_channel(int(channelId))
     members = voice_channel.members
     for member in members:
         print(f'member name is {member.name}')
@@ -196,7 +198,8 @@ async def restartGame(ctx):
     brief='เซฟรหัสเข้าห้องเอาไว้ดู | !setRoomCode roomCode'
 )
 async def setRoomCode(ctx, code):
-    global roomCode = code
+    global roomCode
+    roomCode = code
     await ctx.send(f'รหัสเข้าห้องคือ {roomCode}')
 
 @bot.command(
@@ -206,6 +209,15 @@ async def setRoomCode(ctx, code):
 )
 async def showRoomCode(ctx):
     await ctx.send(f'รหัสเข้าห้องคือ {roomCode}')
+
+@bot.command(
+    name='setChannelId',
+    help='ตั้ง channel id | !setChannelId channelId',
+    brief='ตั้ง channel id | !setChannelId channelId'
+)
+async def setChannelId(ctx, id):
+    global channelId
+    channelId = id
 
 @bot.event
 async def on_command_error(ctx, error):
